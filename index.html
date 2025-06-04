@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8">
+  <title>Babalar Günü Sürprizi</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      background: linear-gradient(to top, #ffe0e0, #fff);
+      font-family: 'Segoe UI', sans-serif;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      overflow: hidden;
+      text-align: center;
+    }
+
+    .envelope {
+      width: 280px;
+      height: 180px;
+      background-color: #c62828;
+      border-radius: 10px;
+      position: relative;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+      cursor: pointer;
+      transition: transform 0.3s;
+    }
+
+    .envelope:before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 0;
+      height: 0;
+      border-left: 140px solid transparent;
+      border-right: 140px solid transparent;
+      border-bottom: 90px solid #e53935;
+      border-radius: 10px 10px 0 0;
+    }
+
+    .message {
+      display: none;
+      background: #fff;
+      border-radius: 16px;
+      padding: 20px;
+      margin-top: 20px;
+      width: 90%;
+      max-width: 350px;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+      animation: fadeIn 1s forwards;
+    }
+
+    h2 {
+      color: #c62828;
+      margin-bottom: 10px;
+    }
+
+    p {
+      font-size: 16px;
+      line-height: 1.6;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .heart {
+      position: absolute;
+      width: 20px;
+      height: 20px;
+      background-color: red;
+      transform: rotate(45deg);
+      animation: float 4s infinite ease-in;
+    }
+
+    .heart::before,
+    .heart::after {
+      content: "";
+      position: absolute;
+      width: 20px;
+      height: 20px;
+      background-color: red;
+      border-radius: 50%;
+    }
+
+    .heart::before {
+      top: -10px;
+      left: 0;
+    }
+
+    .heart::after {
+      left: -10px;
+      top: 0;
+    }
+
+    audio {
+      display: none;
+    }
+  </style>
+</head>
+<body>
+
+  <audio id="bgMusic" autoplay loop>
+    <source src="https://krakenfiles.com/view/vYcxQqUnbn/file.html" type="audio/mpeg">
+    Tarayıcınız müzik çalmayı desteklemiyor.
+  </audio>
+
+  <div class="envelope" onclick="openEnvelope()"></div>
+
+  <div class="message" id="message">
+    <h2>Babalar Günü Kutlu Olsun!</h2>
+    <p>Biyolojik bağlardan çok daha öte bir bağla bağlıyız biliyorum. Hayatıma girdiğin günden beri bana bir babadan çok daha fazlası oldun. Bana öğrettiklerin, verdiğin destek ve koşulsuz sevgin için sana ne kadar teşekkür etsem az. Senin gibi biriyle büyüdüğüm için kendimi çok şanslı hissediyorum. İyi ki varsın, iyi ki benim baba figürümsün. Babalar Günün kutlu olsun!</p>
+  </div>
+
+  <script>
+    function openEnvelope() {
+      document.querySelector('.envelope').style.display = 'none';
+      document.getElementById('message').style.display = 'block';
+
+      // Kalpler
+      for (let i = 0; i < 30; i++) {
+        const heart = document.createElement('div');
+        heart.className = 'heart';
+        heart.style.left = Math.random() * window.innerWidth + 'px';
+        heart.style.bottom = '-30px';
+        heart.style.animationDuration = 2 + Math.random() * 3 + 's';
+        document.body.appendChild(heart);
+        setTimeout(() => heart.remove(), 6000);
+      }
+
+      // Müzik başlat (bazı telefonlarda dokunma gerektirebilir)
+      const music = document.getElementById("bgMusic");
+      music.play().catch(() => {});
+    }
+  </script>
+
+</body>
+</html>
